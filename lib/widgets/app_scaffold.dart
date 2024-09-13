@@ -1,5 +1,4 @@
 import 'package:apex_app/extensions/padding.dart';
-import 'package:apex_app/resourses/colors.dart';
 import 'package:apex_app/resourses/images.dart';
 import 'package:flutter/material.dart';
 

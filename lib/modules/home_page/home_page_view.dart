@@ -25,7 +25,26 @@ class HomePageView extends StatelessWidget {
                   ProgressBarLevel(
                     toNextLevelPercent: state.profile.toNextLevelPercent,
                   ).paddingOnly(top: 16),
-                  Image.network(state.legend.icon),
+                  Container(
+                    alignment: Alignment.center,
+                    height: 492,
+                    child: Stack(
+                      alignment: Alignment.center,
+                      children: [
+                        Image.network(
+                          state.legend.icon,
+                          loadingBuilder: (context, child, loadingProgress) {
+                            if (loadingProgress == null) {
+                              return child;
+                            }
+                            return const CircularProgressIndicator(
+                              color: Colors.red,
+                            );
+                          },
+                        ).paddingOnly(top: 32),
+                      ],
+                    ),
+                  ),
                 ],
               ),
       ),

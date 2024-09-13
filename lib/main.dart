@@ -1,4 +1,5 @@
 import 'package:apex_app/data/api/api_parser.dart';
+import 'package:apex_app/modules/auth_page/cubit/auth_page_cubit.dart';
 import 'package:apex_app/modules/home_page/cubit/home_cubit.dart';
 import 'package:apex_app/modules/legends_page/cubit/legends_cubit.dart';
 import 'package:apex_app/modules/settings_page/cubit/settings_cubit.dart';
@@ -22,6 +23,9 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
+          create: (_) => AuthPageCubit(),
+        ),
+        BlocProvider(
           create: (_) => HomePageCubit(api),
         ),
         BlocProvider(
@@ -38,7 +42,7 @@ class MyApp extends StatelessWidget {
         ),
       ],
       child: MaterialApp(
-        initialRoute: AppPages.pageWrapper,
+        initialRoute: AppPages.authPage,
         routes: AppPages.routes,
       ),
     );
