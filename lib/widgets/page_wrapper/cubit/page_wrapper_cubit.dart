@@ -16,7 +16,7 @@ class PageWrapperCubit extends Cubit<PageWrapperState> {
 
   void load() async {
     emit(PageWrapperStateLoading(response: state.response));
-    await api.allStatisticProfileApi();
+    // await api.allStatisticProfileApi();
     context.read<HomePageCubit>().load();
     if (api.response != null) {
       emit(PageWrapperStateLoaded(response: api.response!.data));

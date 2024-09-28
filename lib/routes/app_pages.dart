@@ -11,7 +11,7 @@ class AppPages {
   static const pageWrapper = '/page-wrapper';
 
   static final routes = {
-    AppPages.authPage: (_) => const AuthPageView(),
+    AppPages.authPage: (_) => AuthPageView(),
     AppPages.homePage: (_) => const HomePageView(),
     AppPages.legendsPage: (_) => const LegendsPageView(),
     AppPages.pageWrapper: (_) => const PageWrapper(),

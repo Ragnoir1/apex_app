@@ -4,13 +4,18 @@ import 'package:apex_app/resourses/images.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+final FocusNode focusNode = FocusNode();
+
 class CustomTextfield extends StatelessWidget {
-  const CustomTextfield({super.key, required this.gamingPlatform});
+  CustomTextfield({super.key, required this.gamingPlatform});
   final GamingPlatform gamingPlatform;
+  final api = ApiClient();
 
   @override
   Widget build(BuildContext context) {
     return TextField(
+      focusNode: focusNode,
+      controller: context.read<AuthPageCubit>().textEditingController,
       decoration: InputDecoration(
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
@@ -37,15 +42,6 @@ class CustomTextfield extends StatelessWidget {
                     bottomRight: Radius.circular(8)),
                 border: Border.all(color: Colors.white, width: 2)),
             child: PopupMenuButton(
-              onCanceled: () {
-                print(gamingPlatform);
-              },
-              onOpened: () {
-                print(gamingPlatform);
-              },
-              onSelected: (value) {
-                print(gamingPlatform);
-              },
               offset: const Offset(2, -2),
               icon: context
                   .read<AuthPageCubit>()
@@ -90,7 +86,7 @@ class CustomTextfield extends StatelessWidget {
                     context
                         .read<AuthPageCubit>()
                         .changePlatform(GamingPlatform.xbox);
-                    print(gamingPlatform);
+                    print(focusNode);
                   },
                   child: Image(
                     image: xboxIcon,
