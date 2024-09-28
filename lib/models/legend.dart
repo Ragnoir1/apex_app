@@ -35,7 +35,9 @@ class Legend {
   factory Legend.fromMap(Map<String, dynamic> map) {
     return Legend(
       name: map['LegendName'] as String,
-      kills: map['data'] != null ? map['data'][0]['value'] as int : 0,
+      kills: (map['data'] != null && map['data'].isNotEmpty)
+          ? map['data'][0]['value'] as int
+          : 0,
       icon: map['ImgAssets']['icon'] as String,
     );
   }

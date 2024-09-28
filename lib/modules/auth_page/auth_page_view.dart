@@ -1,4 +1,3 @@
-import 'package:apex_app/data/api/api_client.dart';
 import 'package:apex_app/extensions/padding.dart';
 import 'package:apex_app/modules/auth_page/cubit/auth_page_cubit.dart';
 import 'package:apex_app/resourses/colors.dart';
@@ -9,8 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AuthPageView extends StatelessWidget {
-  AuthPageView({super.key});
-  final api = ApiClient();
+  const AuthPageView({super.key});
 
   @override
   Widget build(BuildContext context) {

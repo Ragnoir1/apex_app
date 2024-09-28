@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (_) => AuthPageCubit(),
+          create: (_) => AuthPageCubit(api),
         ),
         BlocProvider(
           create: (_) => HomePageCubit(api),

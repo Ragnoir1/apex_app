@@ -1,4 +1,5 @@
 import 'package:apex_app/data/api/api_client.dart';
+import 'package:apex_app/data/api/api_parser.dart';
 import 'package:apex_app/resourses/images.dart';
 import 'package:apex_app/routes/app_pages.dart';
 import 'package:apex_app/widgets/custom_textfield.dart';
@@ -9,11 +10,11 @@ import 'package:meta/meta.dart';
 part 'auth_page_state.dart';
 
 class AuthPageCubit extends Cubit<AuthPageState> {
-  AuthPageCubit()
+  AuthPageCubit(this.api)
       : super(const AuthPageInitial(selectedPlatform: GamingPlatform.pc)) {
     focusNode.addListener(_handleFocusChange);
   }
-  final api = ApiClient();
+  ApiParser api;
   final TextEditingController textEditingController = TextEditingController();
   final ValueNotifier<bool> isVisible = ValueNotifier<bool>(focusNode.hasFocus);
 
