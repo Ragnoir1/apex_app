@@ -1,5 +1,6 @@
 import 'package:apex_app/data/api/api_client.dart';
 import 'package:apex_app/data/api/api_parser.dart';
+import 'package:apex_app/data/session_data_provider.dart';
 import 'package:apex_app/resourses/images.dart';
 import 'package:apex_app/routes/app_pages.dart';
 import 'package:apex_app/widgets/custom_textfield.dart';
@@ -15,6 +16,7 @@ class AuthPageCubit extends Cubit<AuthPageState> {
     focusNode.addListener(_handleFocusChange);
   }
   ApiParser api;
+  final sessionData = SessionDataProvider();
   final TextEditingController textEditingController = TextEditingController();
   final ValueNotifier<bool> isVisible = ValueNotifier<bool>(focusNode.hasFocus);
 
@@ -23,10 +25,15 @@ class AuthPageCubit extends Cubit<AuthPageState> {
   }
 
   Future<void> auth(BuildContext context, GamingPlatform type) async {
+    FocusManager.instance.primaryFocus?.unfocus();
     await api.request(textEditingController.text, type);
-    api.response != null
-        ? Navigator.of(context).pushReplacementNamed(AppPages.pageWrapper)
-        : print("Стоп");
+    if (api.response != null) {
+      await sessionData.savePlayer(textEditingController.text, type);
+      textEditingController.clear();
+      Navigator.of(context).pushReplacementNamed(AppPages.pageWrapper);
+    } else {
+      print("Стоп");
+    }
   }
 
   Image getImageSelectedPlatform(GamingPlatform type) {

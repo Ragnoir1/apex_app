@@ -1,4 +1,5 @@
 import 'package:apex_app/data/api/api_parser.dart';
+import 'package:apex_app/data/session_data_provider.dart';
 import 'package:apex_app/modules/auth_page/cubit/auth_page_cubit.dart';
 import 'package:apex_app/modules/home_page/cubit/home_cubit.dart';
 import 'package:apex_app/modules/legends_page/cubit/legends_cubit.dart';
@@ -9,12 +10,17 @@ import 'package:apex_app/routes/app_pages.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-void main() {
-  runApp(const MyApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  final SessionDataProvider session = SessionDataProvider();
+  await session.checkAuth();
+  runApp(MyApp(session: session));
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  final SessionDataProvider session;
+
+  const MyApp({super.key, required this.session});
 
   @override
   Widget build(BuildContext context) {
@@ -38,11 +44,11 @@ class MyApp extends StatelessWidget {
           create: (_) => SettingsPageCubit(),
         ),
         BlocProvider(
-          create: (context) => PageWrapperCubit(context, api)..load(),
+          create: (context) => PageWrapperCubit(context, api, session)..load(),
         ),
       ],
       child: MaterialApp(
-        initialRoute: AppPages.authPage,
+        initialRoute: session.isAuth ? AppPages.pageWrapper : AppPages.authPage,
         routes: AppPages.routes,
       ),
     );
