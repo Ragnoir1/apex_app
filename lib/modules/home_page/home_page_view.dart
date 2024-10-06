@@ -55,7 +55,9 @@ class HomePageView extends StatelessWidget {
     return Column(
       children: [
         Text(
-          ("[${state.profile.tag}]${state.profile.name}"),
+          state.profile.tag.isNotEmpty
+              ? ("[${state.profile.tag}]${state.profile.name}")
+              : state.profile.name,
           style: const TextStyle(
               fontFamily: 'Apex',
               fontSize: 20,

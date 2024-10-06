@@ -8,12 +8,13 @@ class SettingsPageView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final session = SessionDataProvider();
     return AppScaffold(
       body: MaterialButton(
         color: Colors.blue,
         child: Text("Выйти"),
         onPressed: () async {
-          await SessionDataProvider().deletPlayer();
+          await session.deletPlayer();
           Navigator.of(context).pushReplacementNamed(AppPages.authPage);
         },
       ),

@@ -41,7 +41,7 @@ class MyApp extends StatelessWidget {
           create: (_) => StatisticPageCubit(),
         ),
         BlocProvider(
-          create: (_) => SettingsPageCubit(),
+          create: (_) => SettingsPageCubit(api),
         ),
         BlocProvider(
           create: (context) => PageWrapperCubit(context, api, session)..load(),

@@ -17,10 +17,12 @@ class PageWrapperCubit extends Cubit<PageWrapperState> {
   ValueNotifier<int> currentIndex = ValueNotifier<int>(0);
 
   void load() async {
+    currentIndex.value = 0;
     emit(PageWrapperStateLoading(response: state.response));
     if (session.isAuth == true) {
-      await session.loadData(api.platform);
-      await api.request(session.player!);
+      // await session.deletPlayer();
+      await session.loadSession();
+      await api.request(session.player!, session.platform);
     }
     context.read<HomePageCubit>().load();
     if (api.response != null) {

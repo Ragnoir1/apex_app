@@ -9,6 +9,7 @@ class SessionDataProvider {
   String? _platform;
   bool get isAuth => _isAuth;
   String? get player => _player;
+  GamingPlatform get platform => _api.getGamingPlatformInType(_platform);
 
   Future<String?> getPlayer() async {
     final storage = await _storage;
@@ -22,10 +23,9 @@ class SessionDataProvider {
     return platform;
   }
 
-  Future<void> loadData(String? platform) async {
+  Future<void> loadSession() async {
     _player = await getPlayer();
     _platform = await getPlatform();
-    platform = _platform;
   }
 
   Future<void> savePlayer(String player, GamingPlatform type) async {

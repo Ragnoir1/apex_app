@@ -12,8 +12,7 @@ class ApiClient {
   static const String xboxPlatform = 'X1';
   String? platform;
 
-  Future<void> request(String player,
-      [GamingPlatform type = GamingPlatform.pc]) async {
+  Future<void> request(String player, GamingPlatform type) async {
     if (platform == null) {
       getGamingPlatformFromType(type);
     }
@@ -22,6 +21,7 @@ class ApiClient {
           .get('${_host}auth=$_userKey&player=$player&platform=$platform');
       response = resp;
     } catch (e) {
+      platform = null;
       print("Ошибка");
     }
   }
@@ -37,7 +37,7 @@ class ApiClient {
     }
   }
 
-  GamingPlatform getGamingPlatformInType(String type) {
+  GamingPlatform getGamingPlatformInType(String? type) {
     switch (type) {
       case pcPlatform:
         return GamingPlatform.pc;

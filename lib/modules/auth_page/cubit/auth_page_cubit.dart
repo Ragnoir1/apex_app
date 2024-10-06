@@ -1,11 +1,14 @@
 import 'package:apex_app/data/api/api_client.dart';
 import 'package:apex_app/data/api/api_parser.dart';
 import 'package:apex_app/data/session_data_provider.dart';
+import 'package:apex_app/main.dart';
 import 'package:apex_app/resourses/images.dart';
 import 'package:apex_app/routes/app_pages.dart';
 import 'package:apex_app/widgets/custom_textfield.dart';
+import 'package:apex_app/widgets/page_wrapper/cubit/page_wrapper_cubit.dart';
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:meta/meta.dart';
 
 part 'auth_page_state.dart';
@@ -30,6 +33,7 @@ class AuthPageCubit extends Cubit<AuthPageState> {
     if (api.response != null) {
       await sessionData.savePlayer(textEditingController.text, type);
       textEditingController.clear();
+      context.read<PageWrapperCubit>().load();
       Navigator.of(context).pushReplacementNamed(AppPages.pageWrapper);
     } else {
       print("Стоп");
